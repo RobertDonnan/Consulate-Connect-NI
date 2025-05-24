@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.1.0/ol.css">
+    <link rel="stylesheet" href="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.4/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol-layerswitcher/dist/ol-layerswitcher.css">
+<!--OpenLayers CSS-->
+<link rel="stylesheet" href="openlayers/openlayers/ol.css" type="text/css">
+<!--Third party Layer Switcher CSS-->
+<link rel="stylesheet" href="ol-layerswitcher/ol-layerswitcher.css"/>
+<!--Code to embed Inter font from Google-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<!--Bootstrap CSS-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!--External stylesheet-->
+<link rel="stylesheet" href="css\stylesheet.css" type="text/css">
+
+
+
+<title>Map</title>
+
+
+<!--JQuery and bootstrap JS-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<img src="images/consulate-connect-ni-high-resolution-logo.png" class="logo">
+
+
+<h1 id="h1-centered">Map</h1>
+<!--Linking pages for navbar-->
+<div class="custom-navbar">
+<li><a href="index.html">Home</a></li>
+<li><a href="map.html">Map</a></li>
+<li><a href="about.html">About</a></li>
+</div>
+</head>
+<!--Div section which contains map-->
+<body onload="initMap();"><!--Loads function (map)upon website load-->
+<div class="dropdown">
+<h2>Routes</h2>
+<button onclick="routes()" class="dropbtn">Dropdown &darr;</button>
+<div id="routesDropdown" class="dropdown-content">
+<a href="javascript:routes('clear')" id="clear">Clear Selection</a>
+<a href="javascript:routes('migrantcentretocollege')" id="migrantcentretocollege">Migrant Centre NI to SRC</a>
+<a href="javascript:routes('BangortoYMCA')" id="BangortoYMCA">Bangor(SERC) to YMCA North Down</a>
+<a href="javascript:routes('polandtouu')" id="polandtouu">Poland Consulate to QUB</a>
+<a href="javascript:routes('qubtous')" id="qubtous">QUB to US Consulate</a>
+<a href="javascript:routes('uutohorns')" id="uutohorns">UU to (HORNS)</a>
+
+</div>
+</div>
+<img src="images/mapkey.png" class="key">
+<div id ="text-block">
+<h2>Location Details:</h2>
+<p>Select a location type for more information.</p>
+<a href="#consulate_list">Consulates</a>
+<a href="#ngo_list">NGO's</a>
+<a href="#education_list">Education</a>
+<a href="#charity_list">Charity</a>
+</div>
+    <div id="map">
+	
+<!--Code provided by maptiler to add their logo for credit-->
+<a id="maptilerlogo"href="https://www.maptiler.com" target="_blank"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+<p id="distance"></p><!--Used to provide distance based on route-->
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/ol@v10.1.0/dist/ol.js"></script>
+ <script src="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.4/openlayers.umd.js"></script>
+<script src="openlayers/openlayers/ol.js" type="text/javascript"></script>
+<!--External JS for map-->
+<script src="js/map.js" type="text/javascript"></script>
+<!--Third Party JS for layer switcher-->
+<script src="ol-layerswitcher/ol-layerswitcher.js"></script>
+<div id="marginalia-text-block">
+<p><b>Sources:</b><br>
+<b>Charity's and NGO's:</b> https://righttoremain.org.uk/directory/northern-ireland/<br>
+<b>Education:</b> https://www.nidirect.gov.uk/articles/universities-and-colleges-northern-ireland<br>#toc-3<br>
+<b>Consulates:</b> https://ca-ni.org/documents/diplomatic-list.pdf?form=MG0AV3<br>
+https://assets.publishing.service.gov.uk/media/67c82afe8247839c255ae2e3/<br>Honorary_Consulates_March_2025.odt<br>
+<b>Map Creation Date:</b> 31/03/25<br>
+<b>Map Publiser:</b> Robert Donnan</p>
+</div>
+<div>
+<table  class="tb" id="consulate_list">
+
+<thead>
+<tr> <strong>
+<th>Consulate</th>
+<th>Link</th>
+<th>Services Offered</th>
+<th>Address</th>
+<th>Contact Details</th>
+</tr> </strong>
+</thead>
+<tr>
+<td>US Consulate</td><!--Name-->
+<td><a href="https://uk.usembassy.gov/embassy-consulates/belfast/" target="_blank">US Consulate Website</a></td><!--Link-->
+<td>Non-Immigrant Visas <br> Passport Renewals</td><!--Services Offered-->
+<td>Danesfort House  223 Stranmillis Road  Belfast BT9 5GR</td><!--Address-->
+<td>Phone: [44] (0)28 9038 6100 (non visa info) Fax:     [44] (0)28 9068 1301</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Poland Consulate</td><!--Name-->
+<td><a href="https://www.gov.pl/web/unitedkingdom/consulate-belfast" target="_blank">Poland Consulate Website</a></td><!--Link-->
+<td>Passport Collection <br> Passport and Visa Applications</td><!--Services Offered-->
+<td>67 Malone Road, BT9 6SB , Belfast</td><!--Address-->
+<td>telephone: +44 28 96209500 <br>e-mail: belfast.kg.sekretariat@msz.gov.pl</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Chinese Consulate</td><!--Name-->
+<td><a href="http://belfast.china-consulate.gov.cn/eng/" target="_blank">Chinese Consulate Website</a></td><!--Link-->
+<td>Visa and Passport Applications<br>Consular Assistance and Protection</td><!--Services Offered-->
+<td>Consulate General of P.R. China in Belfast 75-77 Malone Road, Belfast, Northern Ireland</td><!--Address-->
+<td>Tel:  0044-(0)28-90682499 <br>Mobile:  +44-7895306461(Cosular Assistance and Protection)<br> Email:  chinaconsul_bft_uk@mfa.gov.cn <br>belfast@csm.mfa.gov.cn(Cosular Assistance and Protection) <br> belfast_hz@csm.mfa.gov.cn(Visa,Passport,Notarization and Authentication)</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Portugal Consulate</td><!--Name-->
+<td><a href="https://londres.consuladoportugal.mne.gov.pt/en/portugal-in-uk/honorary-consulates#honorary-consulate-of-portugal-in-belfast" target="_blank">Portugal Consulate Website</a></td><!--Link-->
+<td>Defending the rights of Portuguese citizens <br> While as an Honorary Consulate the consul lacks authorisation for certain tasks, it can when applicable carry out the following services: <br> Assist in the voter registration process<br>civil registry<br>Assist with issuing travel documentation</td><!--Services Offered-->
+<td>Mayfair Business Park Unit H 193 Garvaghy Road Portadown BT62 1HA Co. ARMAGH </td><!--Address-->
+<td>Phone: + (44) 7595746799 <br> E-mail: portugueseconsulbelfast@gmail.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Indian Visa and Consular Application Centre</td><!--Name-->
+<td><a href="https://services.vfsglobal.com/gbr/en/ind/attend-centre/Belfast" target="_blank">VFS Global Website</a></td><!--Link-->
+<td>Renounce/Surrender Indian Passport <br> Normal or Urgant Passport Service<br>Life Certificate(Birth, Death, Marriage etc)<br>Indian visa<br>OCI(Overseas Citizenship of India)</td><!--Services Offered-->
+<td>Indian Visa and Consular Application Centre MERRION BUSINESS CENTRE First Floor 58 Howard Street, BELFAST, BT1 6PJ</td><!--Address-->
+<td>phone: +442037938629</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Consulate General for St Vincent & The Grenadines</td><!--Name-->
+<td><a href="https://www.svgconsulate.vc/index.php" target="_blank">St Vincent & The Grenadines Consulate Website</a></td><!--Link-->
+<td>Visa's and Permits <br> Citizenship registration<br>Copy of Police Record <br>Notarisation of Documents<br>Marriage or Birth Certificate<br>Passport Applications<br>Renounce Citizenship<br>Certificate of Recognition of Caribbean Community (CARICOM) Skills Qualification</td><!--Services Offered-->
+<td>16 Glen Road Comber (BELFAST), Co. Down BT23 5EL </td><!--Address-->
+<td>Email: cg@svgconsulate.vc <br>  +44 (0)28 9187 4697</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>New Zealand Consulate</td><!--Name-->
+<td><a href="https://www.mfat.govt.nz/en/countries-and-regions/europe/united-kingdom/new-zealand-high-commission" target="_blank">NZ Consulate Website</a></td><!--Link-->
+<td>Visas and Passports <br> Notarisation Services</td><!--Services Offered-->
+<td>Glendinning House 6 Murray Street BT1 6DN Belfast United Kingdom</td><!--Address-->
+<td>Tel +44 (0)7712 188 773 Email nzconsulbelfast@nzhc.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>The British Irish Secretariat</td><!--Name-->
+<td><a href="https://www.britishirishcouncil.org/secretariat/" target="_blank">British/Irish Council Website</a></td><!--Link-->
+<td>Promoting relations between the UK and Ireland<br>Ministerial Meetings<br>Summit Meetings<br> Work Sector Programmes to promote relations between UK nations and Ireland</td><!--Services Offered-->
+<td>40 Linenhall St, Belfast BT2</td><!--Address-->
+<td>Email: secretariat@britishirishcouncil.org Phone: 028 9038 3712</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Embassy of Belgium</td><!--Name-->
+<td><a href="https://unitedkingdom.diplomatie.belgium.be/en/embassy-and-consulates/embassy-london/honorary-consulates-united-kingdom" target="_blank">Belgium Consulate Website</a></td><!--Link-->
+<td>Emergency help for Belgium citizens</td><!--Services Offered-->
+<td>47 Gilnahirk Park Belfast County Down BT5 7DY Northern Ireland </td><!--Address-->
+<td>Email: colette.fitzgerald5@gmail.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Consulate of Brazil</td><!--Name-->
+<td><a href="https://aid-air.com/en/embassy-consulate/brazil/honorary-consulate-of-brazil-in-belfast-northern-ireland/" target="_blank">Brazil Consulate Information Website</a></td><!--Link-->
+<td>Travel Document Insurance<br> Police Certificate<br>Document Authentication</td><!--Services Offered-->
+<td>19 Kintyre, Antrim Belfast BT41 2AN United Kingdom</td><!--Address-->
+<td>Phone: +44 78 6839 6588</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Bulgaria Consulate</td><!--Name-->
+<td><a href="https://bulgaria-evisa.com/consulate/bulgarian-honorary-consulate-in-belfast-united-kingdom/" target="_blank">Bulgarian Consulate Website</a></td><!--Link-->
+<td>Visa Application <br>Emergency Services for Bulgarian Citizens</td><!--Services Offered-->
+<td>NI-CO, Landmark House 5 Cromac Quay Belfast BT7 2JD United Kingdom</td><!--Address-->
+<td>Email: paulmartin1950b@hotmail.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Italy Consulate</td><!--Name-->
+<td><a href="https://aid-air.com/en/embassy-consulate/italy/honorary-consulate-of-italy-in-belfast-northern-ireland/" target="_blank">Italy Consulate information Website</a></td><!--Link-->
+<td>Document Authentication <br> Police Certificates <br> Travel documentation for emergencies</td><!--Services Offered-->
+<td>1A Ftizwilliam Street (First Floor) Belfast BT9 6AW United Kingdom</td><!--Address-->
+<td>Phone: +44 7747 830 654</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Finland Honorary Consulate</td><!--Name-->
+<td><a href="https://finlandabroad.fi/web/gbr/honorary-consulates/-/asset_publisher/4sNllRsmWs2r/contactInfoOrganization/id/121448" target="_blank">Finland Honorary Consulate Website</a></td><!--Link-->
+<td>Assistance to Finnish Citizens or PR living abroad<br>Certificate Notarisation<br>Advising Finnish Companies</td><!--Services Offered-->
+<td>People Plus NI Guild House 38 Mallusk Road NEWTOWNABBEY BT36 4PP UNITED KINGDOM</td><!--Address-->
+<td>Email: t.e.mckenzie@hotmail.com Phone: +44 78 028 171 96</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Switzerland Consulate</td><!--Name-->
+<td><a href="https://www.eda.admin.ch/countries/united-kingdom/en/home/representations/embassy-in-london/honorary-consulates/consulate-belfast.html" target="_blank">Switzerland Honorary Consulate Website</a></td><!--Link-->
+<td>Emergncy Support for Swizz citizens</td><!--Services Offered-->
+<td>54 Priory Park Belfast BT10 0AE United Kingdom</td><!--Address-->
+<td>Phone Switchboard +44 77 33 59 55 95 Headquarters belfast@honrep.ch</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Greece Honorary Consulate</td><!--Name-->
+<td><a href="https://www.mfa.gr/uk/en/greece/greece-and-the-uk/general-information.html" target="_blank">Greek Consulate Website</a></td><!--Link-->
+<td>Military Affairs <br> Power of Attorney Notarial Services <br>Legalisation of signature authorisations<br>Registrations<br>Certificates</td><!--Services Offered-->
+<td>73 Eglantine Avenue, Apartment 2, BT9 6EW, Belfast, Northern Ireland</td><!--Address-->
+<td>Email: 73 Eglantine Avenue, Apartment 2, BT9 6EW, Belfast, Northern Ireland</td><!--Contact Dectails-->
+</tr>
+
+
+<tr>
+<td>Sweden Honorary Consulate</td><!--Name-->
+<td><a href="https://www.swedenabroad.se/en/embassies/united-kingdom-london/about-us/honorary-consulates/" target="_blank">Sweden Consulate Website</a></td><!--Link-->
+<td>Passport Collection <br>Life Certificate signature<br>Emergency, imprisonment or death assistance for Swedish Citizens</td><!--Services Offered-->
+<td>1 Corry Place Belfast Harbour Estate Belfast BT3 9AH Northern Ireland </td><!--Address-->
+<td>Phone +44(0) 28 9035 0035 E-mail davidc@heyn.co.uk E-mail karenp@heyn.co.uk Fax +44(0) 28 9035 0005</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Iceland Honorary Consulate</td><!--Name-->
+<td><a href="https://www.government.is/diplomatic-missions/embassy-of-iceland-in-london/embassys-jurisdiction/" target="_blank">Iceland Consulate Website</a></td><!--Link-->
+<td>Emergency Services to Icelandic Citizens</td><!--Services Offered-->
+<td>Scottish Provident Building, Unit 315-316 7 Donegall Square West Belfast, BT1 6JH</td><!--Address-->
+<td>shane@ortussecuredfinance.co.uk Phone: +44 28 9532 0066 Mobile: +44 744 209 1031 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Malawi Honorary Consulate</td><!--Name-->
+<td><a href="https://www.malawihighcommission.co.uk/index.php/high-commission/honorary-consuls" target="_blank">Malawi Consulate Website</a></td><!--Link-->
+<td>Assistance to Malawian Citizens and foreign nationals<br> Charity Engagement<br>Humanitarian Support</td><!--Services Offered-->
+<td>5 Kensington Gardens Co. Down BT26 6HP Hillsborough</td><!--Address-->
+<td>Email: carsonconluce@aol.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Guatemalan Honorary Consulate</td><!--Name-->
+<td><a href="https://visa-to-travel.com/consulates-general/guatemala-in-united-kingdom/" target="_blank">Guatemalan Consulate information Website</a></td><!--Link-->
+<td>Emergency Consular Assistance for Guatemalan citizens</td><!--Services Offered-->
+<td>Hamilton Shipping 2-10 Duncrue Road Belfast - BT3 9BP United Kingdom</td><!--Address-->
+<td> Phone:(+44) 28 9074 0111</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Namibia Honorary Consulate</td><!--Name-->
+<td><a href="https://www.namibiahc.org.uk/the-high-commission" target="_blank">Namibia Consulate Website</a></td><!--Link-->
+<td>Emergency Consular Assistance for Namibian citizens</td><!--Services Offered-->
+<td>33 Lisburn Road Hillsborough Co Down BT26 6HW Northern Ireland </td><!--Address-->
+<td> Tel: (+44) 07830210163 Email: kevinoneill99@googlemail.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Norway Honorary Consulate</td><!--Name-->
+<td><a href="https://www.norway.no/en/uk/services-info/norway-uk/other-consulates-uk/#TheNorwegianHonoraryConsulateinBelfast" target="_blank">Norway Consulate Website</a></td><!--Link-->
+<td>Emergency Consular Assistance for Norwegian citizens</td><!--Services Offered-->
+<td>Michael F. Ewings Shipping Ltd. 15-19 Corporation Square Belfast BT1 3AJ</td><!--Address-->
+<td>Tel.: 02890 242 242 E-mail: michael.ewings@outlook.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Slovakia Honorary Consulate</td><!--Name-->
+<td><a href="https://mzv.sk/en/web/londyn-en/about-us/honorary-consulates" target="_blank">Slovakia Consulate Website</a></td><!--Link-->
+<td>National Visa <br>Foreign Residency in Slovakia Services</td><!--Services Offered-->
+<td>Scottish Provident Building Donegal Square West Belfast BT1 6JH, UK</td><!--Address-->
+<td>Tel:  028 9521 5533 Email: sullivant@csp.org.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Mexican Consulate</td><!--Name-->
+<td><a href="https://mexico-e-visa.com/consulate/mexican-in-belfast-united-kingdom/" target="_blank">Mexico Consulate Website</a></td><!--Link-->
+<td>Visas applicationa (Student, Intern, Film, Tourist, Employment etc)</td><!--Services Offered-->
+<td>757 Antrim Road Co Antrim Belfast BT15 4EN Tel: 07760 438 944</td><!--Address-->
+<td>Tel: 07760 438 944 Email: honbefast@sre.gob.mx  brendan@bjmglobal.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Cyprus Consulate</td><!--Name-->
+<td><a href="https://cyprusinuk.com/honorary-consulates/" target="_blank">Cyprus Consulate Website</a></td><!--Link-->
+<td>Document Legalisation<br> Passport Services <br>Emergency documents <br> PR Certificate<br> Police Reports<br>Citizenship of newborns or minors</td><!--Services Offered-->
+<td>Hillcreely House, 18 Hillsborough Road, Comber BT23 5PQ</td><!--Address-->
+<td>Mob: 07901816014 Email: nick@lestas.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Hungary Consulate</td><!--Name-->
+<td><a href="https://london.mfa.gov.hu/eng/page/consular-offices-and-consular-districts-in-the-uk" target="_blank">Hungary Consulate Website</a></td><!--Link-->
+<td>Passport application for children under 12 (if their birth has already been registered in Hungary)<br>Certificate of Good Conduct<br>Registration of a Hungarian passport/ID loss</td><!--Services Offered-->
+<td>C/O Grafton Recruitment, The Boating Building, 47 Queens Square, Belfast BT1 3FG</td><!--Address-->
+<td>Phone: (00 44)  776-432-0333 E-mail: Honconsul@hungaryni.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Chile Consulate</td><!--Name-->
+<td><a href="https://chile-evisa.com/consulate/chilean-honorary-consulate-in-belfast-united-kingdom/" target="_blank">Chile Consulate Website</a></td><!--Link-->
+<td>Visa Applications (eVisa, Tourist, Resident, Student etc)<br> Passport Renewals</td><!--Services Offered-->
+<td>Ballyedmond Castle 101 Killowen Road Rostrevor, Co Down BT34 3AG United Kingdom</td><!--Address-->
+<td>Contact No.   	: (+44) 28 3026 9824</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Canadian Consulate</td><!--Name-->
+<td><a href="https://www.international.gc.ca/country-pays/united_kingdom-royaume_uni/belfast.aspx?lang=eng" target="_blank">Canadian Consulate Website</a></td><!--Link-->
+<td>Birth, Death and Marriage Certificates</td><!--Services Offered-->
+<td>27 Killyleagh Road Killinchy BT23 6TD</td><!--Address-->
+<td>Tel: 028 9754 2405 Email: belfast@international.gc.ca</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Estonian Consulate</td><!--Name-->
+<td><a href="https://london.mfa.ee/estonian-honorary-consuls-in-the-united-kingdom/" target="_blank">Estonia Consulate Website</a></td><!--Link-->
+<td>Passport or ID Collection<br> Police Clearance Certificate<br>Family Certificates</td><!--Services Offered-->
+<td>Lincoln Building Ground Floor 27-45 Great Victoria Street Belfast BT2 7SL</td><!--Address-->
+<td>Tel. +44 28 9024 2242 Fax +44 28 9023 5776 Mark.Ewings@clarksons.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>German Consulate</td><!--Name-->
+<td><a href="https://uk.diplo.de/uk-en/01/honorary-consuls-501380?openAccordionId=item-240958-12-panel" target="_blank">German Consulate Website</a></td><!--Link-->
+<td>Authentication of life Certificate signature<br> Authentication of Certificate copies <br>Authentication of signatures for civil law matters<br>Passport Renewals</td><!--Services Offered-->
+<td>28 Templeard, Ballynagard, Londonderry BT48 8FE</td><!--Address-->
+<td>E-Mail londonderry_derry@hk-diplo.de Telephone 07306 888 914</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Mauritius Consulate</td><!--Name-->
+<td><a href="https://northireland-mauritius.govmu.org/Pages/index.aspx" target="_blank">Mauritius Consulate Website</a></td><!--Link-->
+<td>Consular Services for Mauritius Citizens<br> Information on passort or visa requirements<br>Promote relations between NI and Mauritius</td><!--Services Offered-->
+<td>Andras House Limited 60 Great Victoria Street Belfast BT2 7BB Northern Ireland</td><!--Address-->
+<td>Tel:02890878787 Fax:02890878797 Email:rameshrana@hotelheads.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Mongolia Consulate</td><!--Name-->
+<td><a href="https://en.consul.mn/representative/c/32" target="_blank">Mongolia Consulate Website</a></td><!--Link-->
+<td>Provides Emergency assistance to Mongolians abroad</td><!--Services Offered-->
+<td>PO Box 326, Bangor, Co.Down, N.Ireland BT20 9DF</td><!--Address-->
+<td>Tel: +447790654247 mongolia_ni@yahoo.co.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Spanish Consulate</td><!--Name-->
+<td><a href="https://www.exteriores.gob.es/Consulados/edimburgo/en/Consulado/Paginas/Demarcacion.aspx" target="_blank">Spanish Honorary Consulate Website</a></td><!--Link-->
+<td>Visa Applications<br>Emergency help for Spanish Citizens</td><!--Services Offered-->
+<td>MKB Law, 14-18 Great Victoria Street Belfast BT2 7BA </td><!--Address-->
+<td>ch.belfast@maec.es</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>French Consulate</td><!--Name-->
+<td><a href="https://evisa-europe.com/consulate/french-honorary-consulate-in-belfast-united-kingdom/" target="_blank">French Consulate Website</a></td><!--Link-->
+<td>Passport Applications<br> Marriage Registration<br>Death/Birth and Civil Registration<br>Citizenship Procedures <br> Military Service and Notary Procedures</td><!--Services Offered-->
+<td>4 Donegall Drive Whitehead Belfast BT38 9LT </td><!--Address-->
+<td>Tel: 0289 337 3475, 0779 506 0048 Email: regineonline@hotmail.co.uk
+</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Ukrainian Consulate</td><!--Name-->
+<td><a href="https://mfa.gov.ua/en/embassies/velika-britaniya" target="_blank">Ukrainian Consulate Website</a></td><!--Link-->
+<td>Emergency assistance for Ukrainian citizens</td><!--Services Offered-->
+<td>22 Curryfree Road Londonderry Northern Ireland BT47 3UH</td><!--Address-->
+<td>Mobile: 07438554394 Email: Ukrainehonoraryconsulnorthernireland@outlook.com
+</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Dutch Consulate</td><!--Name-->
+<td><a href="https://www.netherlandsandyou.nl/web/united-kingdom/about-us/honorary-consuls-united-kingdom" target="_blank">Dutch Consulate Website</a></td><!--Link-->
+<td>Emergency consular assistance for Dutch Citizens <br>laissez-passer travel document for stranded Dutch tourists </td><!--Services Offered-->
+<td>33 Lisburn Road Hillsborough Co Down BT26 6HW Northern Ireland </td><!--Address-->
+<td>Phone: 07484 717280  Email: belfast@nlhonoraryconsul.nl</td><!--Contact Dectails-->
+</tr>
+</table>
+</div>
+
+<!--End of Consulate Table-->
+
+
+
+<!--Education table-->
+<div>
+<table  class="tb-edu" id="education_list">
+<thead>
+<tr> <strong>
+<th>Institute</th>
+<th>Link</th>
+<th>Services Offered</th>
+<th>Address</th>
+<th>Contact Details</th>
+</tr> </strong>
+</thead>
+
+<tr>
+<td>Ulster University - Belfast</td><!--Name-->
+<td><a href="https://www.ulster.ac.uk/campuses/belfast" target="_blank">UU Belfast Website</a></td><!--Link-->
+<td>Undergraduate(BA,BSc,BEng, LLB, LLM, MBBS, MArch, BDes, AdvCert)<br>Postgraduate(PGCE,PGDIP, PGCERT, MA, MSc, MSci, MAcc, MPA, MEng, MFA, MDes, MBA, LLM)<br> TESOL<br></td><!--Services Offered-->
+<td>2-24 York Street, Belfast, BT15 1AP</td><!--Address-->
+<td>Campus emergency contacts On campus: Extension 22222 Off campus: 028 7012 3456</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Queens University - Belfast</td><!--Name-->
+<td><a href="https://www.qub.ac.uk/" target="_blank">QUB Website</a></td><!--Link-->
+<td>Undergraduate(BSc, MAcc, BEng, BA, FD, MChem, BDS, MPlan, LLB, MLibArts, MSci, MMath, MB, BMus, MPharm, MPhys, BSW)<br>Postgraduate(PhD, MSc, PGDip, PGCert, PGCE, MEng, MSci, MPhil, MArch, MRes, MSc(Res), DClinPsych. LLM, DECAP, MA, MPH, MEd, MBA, MLaw)</td><!--Services Offered-->
+<td>University Road, Belfast Northern Ireland, BT7 1NN</td><!--Address-->
+<td>+44 (0)28 9024 51331</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Newtownards</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/newtownards-campus" target="_blank">SERC Newtownards Campus Website</a></td><!--Link-->
+<td>ESOL<br>Level 1, 2 and 3 and 5 courses, Undergraduate(FD)</td><!--Services Offered-->
+<td>South Eastern Regional College Newtownards Campus Victoria Avenue Newtownards Co Down BT23 7EH</td><!--Address-->
+<td>Email: info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Bangor</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/Bangor-campus" target="_blank">SERC Bangor Website</a></td><!--Link-->
+<td>ESOL<br>Level 1, 2 and 3 courses <br>A level<br>Undergraduate(FD, BSc)</td><!--Services Offered-->
+<td>South Eastern Regional College Bangor Campus Castle Park Road Co Down BT20 4TD </td><!--Address-->
+<td>Email: info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Downpatrick</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/Downpatrick-campus" target="_blank">SERC Downpatrick Website</a></td><!--Link-->
+<td>GCSE<br>ESOL<br>Level 1,2,3 and 4 coures<br> Undergraduate(FdSc)</td><!--Services Offered-->
+<td>South Eastern Regional College Downpatrick Campus Market Street Downpatrick Co Down BT30 6LZ </td><!--Address-->
+<td>Email:info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Lisburn</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/Lisburn-campus" target="_blank">SERC Lisburn Website</a></td><!--Link-->
+<td>GCSE<br> Undergraduate(BSc)<br>ESOL<br> Level 1, 2, 3 and 4 courses</td><!--Services Offered-->
+<td>South Eastern Regional College Lisburn Campus Castle Street Lisburn Co Antrim BT27 4SU</td><!--Address-->
+<td>Email: info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Holywood</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/Holywood-campus" target="_blank">SERC Holywood Website</a></td><!--Link-->
+<td>Level 2 courses</td><!--Services Offered-->
+<td>South Eastern Regional College Holywood Campus Old Holywood Road Holywood Co. Down BT18 9QH</td><!--Address-->
+<td>Email: info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South Eastern Regional College - Newcastle</td><!--Name-->
+<td><a href="https://www.serc.ac.uk/about/Newcastle-campus" target="_blank">SERC Newcastle Website</a></td><!--Link-->
+<td>Level 2 courses</td><!--Services Offered-->
+<td>South Eastern Regional College Newcastle Campus Castlewellan Road Newcastle Co. Down BT33 0UR </td><!--Address-->
+<td>Email: info@serc.ac.uk Phone: 0345 600 7555</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Ulster University Londonderry</td><!--Name-->
+<td><a href="https://www.ulster.ac.uk/campuses/derry-londonderry" target="_blank">UU londonderry Website</a></td><!--Link-->
+<td>Undergraduate(BA,BSc,BEng, LLB, MBBS)<br>Postgraduate(PGCE,PGDIP, PGCERT, MA, MSc, MMus)<br> TESOL<br></td><!--Services Offered-->
+<td>Northland Rd, Londonderry, BT48 7JL</td><!--Address-->
+<td>Campus emergency contacts On campus: Extension 22222 Off campus: 028 7012 3456</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Ulster University Coleraine</td><!--Name-->
+<td><a href="https://www.ulster.ac.uk/campuses/coleraine" target="_blank">UU Coleraine Website</a></td><!--Link-->
+<td>Undergraduate(BA,BSc)<br>Postgraduate(PGCE,PGDIP,MA, MSc, MOptom, MSci, MPharm)<br> TESOL<br></td><!--Services Offered-->
+<td>Cromore Rd, Coleraine, BT52 1SA</td><!--Address-->
+<td>Campus emergency contacts On campus: Extension 22222 Off campus: 028 7012 3456</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Belfast Met</td><!--Name-->
+<td><a href="https://www.belfastmet.ac.uk/" target="_blank">Belfast Met Website</a></td><!--Link-->
+<td>Apprenticeships<br>A-Levels<br>ESOL<br>Essential Skills <br> Undergraduate (BSc, FdSc, HND)<br>Level 2 and 3</td><!--Services Offered-->
+<td>125–153 Millfield, Belfast BT1 1HS</td><!--Address-->
+<td> Course Enquiries 028 9026 5265 Phone: 028 9026 5000</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Regional College - Ballymena (Trostan Avenue)</td><!--Name-->
+<td><a href="https://www.nrc.ac.uk/nrc/contact-us/" target="_blank">NRC Website</a></td><!--Link-->
+<td>Apprenticeships<br>HLA<br>GCSE<br>ESOL<BR>Essential Skills<br>Advanced Technical Award</td><!--Services Offered-->
+<td>Trostan Avenue Building, Ballymena, Co Antrim, BT43 7BN</td><!--Address-->
+<td>Phone: 0333 034 8197 Email: admissions@nrc.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Regional College - Ballymena (Farm Lodge)</td><!--Name-->
+<td><a href="https://www.nrc.ac.uk/nrc/contact-us/" target="_blank">NRC Website</a></td><!--Link-->
+<td>Apprenticeships<br>HLA<br>GCSE<br>ESOL<BR>Essential Skills<br>Advanced Technical Award</td><!--Services Offered-->
+<td>Farm Lodge Buildings, Ballymena, Co Antrim, BT43 7DF</td><!--Address-->
+<td>Phone: 0333 034 8197 Email: admissions@nrc.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Regional College - Coleraine</td><!--Name-->
+<td><a href="https://www.nrc.ac.uk/nrc/contact-us/" target="_blank">NRC Website</a></td><!--Link-->
+<td>Apprenticeships<br>HLA<br>GCSE<br>ESOL<BR>Essential Skills<br>Advanced Technical Award</td><!--Services Offered-->
+<td>Causeway Campus, Union Street, Coleraine, Co Londonderry, BT52 1QA</td><!--Address-->
+<td>Phone: 0333 034 8197 Email: admissions@nrc.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Ulster University - Jordanstown</td><!--Name-->
+<td><a href="https://www.ulster.ac.uk/campuses/sports-village" target="_blank">UU Sports Village Website</a></td><!--Link-->
+<td>Sports facilities</td><!--Services Offered-->
+<td>Shore Rd, Newtownabbey, BT37 0QB</td><!--Address-->
+<td>Emergency contacts On campus: Extension 22222 Off campus: 028 70123456</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Regional College - Newtownabbey</td><!--Name-->
+<td><a href="https://www.nrc.ac.uk/nrc/contact-us/" target="_blank">NRC Website</a></td><!--Link-->
+<td>Apprenticeships<br>HLA<br>GCSE<br>ESOL<BR>Essential Skills<br>Advanced Technical Award</td><!--Services Offered-->
+<td>400 Shore Road, Newtownabbey, Co Antrim, BT37 9RS</td><!--Address-->
+<td>Phone: 0333 034 8197 Email: admissions@nrc.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Regional College - Magherafelt</td><!--Name-->
+<td><a href="https://www.nrc.ac.uk/nrc/contact-us/" target="_blank">NRC Website</a></td><!--Link-->
+<td>Apprenticeships<br>HLA<br>GCSE<br>ESOL<BR>Essential Skills<br>Advanced Technical Award</td><!--Services Offered-->
+<td>22 Moneymore Road, Magherafelt, Co Londonderry, BT45 6AE</td><!--Address-->
+<td>Phone: 0333 034 8197 Email: admissions@nrc.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Southern Regional College - Armagh</td><!--Name-->
+<td><a href="https://staging.src.ac.uk/about-us/campuses/armagh-campus" target="_blank">SRC Armagh Website</a></td><!--Link-->
+<td>Undergraduate(BA, Foundation Degree, HND, HLA) <br> Level 1 , 2 and 3 Courses<br> A Levels</td><!--Services Offered-->
+<td>Danesfort House  223 Stranmillis Road  Belfast BT9 5GR</td><!--Address-->
+<td>Phone: [44] (0)28 9038 6100 (non visa info) Fax:     [44] (0)28 9068 1301</td><!--Contact Dectails-->
+</tr>
+
+
+<tr>
+<td>Southern Regional College - Banbridge</td><!--Name-->
+<td><a href="https://www.src.ac.uk/about-us/campuses/banbridge-campus" target="_blank">SRC Banbridge Website</a></td><!--Link-->
+<td>Undergraduate(BSc, Foundation Degree, HND, HLA) <br> Level 1 , 2 and 3 Courses<<br> LEAP Employability course</td><!--Services Offered-->
+<td>Castlewellan Road Banbridge BT32 4AY</td><!--Address-->
+<td> T: 0300 123 1223 E: info@src.ac.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Southern Regional College - Newry (Model)</td><!--Name-->
+<td><a href="https://www.src.ac.uk/about-us/campuses/newry-campus" target="_blank">SRC Newry Website</a></td><!--Link-->
+<td>Undergraduate(Cert of Higher Education, BEng, BA, BSc, Foundation Degree, HLA) <br> Level 1 , 2 and 3 Courses<br>ESOL <br> LEAP Employability course</td><!--Services Offered-->
+<td>Catherine Street Newry County Down Northern Ireland BT35 6JG</td><!--Address-->
+<td> T: 0300 123 1223 E: info@src.ac.uk </td><!--Contact Dectails-->
+</tr>
+
+
+<tr>
+<td>Southern Regional College - Newry (Greenback)</td><!--Name-->
+<td><a href="https://www.src.ac.uk/about-us/campuses/newry-campus" target="_blank">SRC Newry Website</a></td><!--Link-->
+<td>Undergraduate(Cert of Higher Education, BA, BSc, BEng,Foundation Degree, HLA) <br> Level 1 , 2 and 3 Courses<br>ESOL<br> LEAP Employability course</td><!--Services Offered-->
+<td>Greenbank Industrial Estate Ballinacraig Way Newry County Down Northern Ireland BT34 2QX</td><!--Address-->
+<td> T: 0300 123 1223 E: info@src.ac.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Southern Regional College - Newry (East West Buildings)</td><!--Name-->
+<td><a href="https://www.src.ac.uk/about-us/campuses/newry-campus" target="_blank">SRC Newry Website</a></td><!--Link-->
+<td>Undergraduate(Cert of Higher Education, BA, BSc, BEng, Foundation Degree, HLA) <br> Level 1 , 2 and 3 Courses<br>ESOL <br> LEAP Employability course</td><!--Services Offered-->
+<td>East/West Buildings Patrick Street Newry County Down Northern Ireland BT35 8DN</td><!--Address-->
+<td> T: 0300 123 1223 E: info@src.ac.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Southern Regional College - Lurgan</td><!--Name-->
+<td><a href="https://www.src.ac.uk/about-us/campuses/lurgan-campus" target="_blank">SRC Lurgan Website</a></td><!--Link-->
+<td>Undergraduate(Cert of Higher Education) <br> Level 1 , 2 and 3 Courses<br>ESOL</td><!--Services Offered-->
+<td>Kitchen Hill Lurgan County Armagh Northern Ireland United Kingdom BT66 6AZ</td><!--Address-->
+<td> T: 0300 123 1223 E: info@src.ac.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Regional College - Londonderry/Strand Road</td><!--Name-->
+<td><a href="https://www.nwrc.ac.uk/about/our-venues/campus-and-facilities/strand-road" target="_blank">NWRC Londonderry/Strand Road Website</a></td><!--Link-->
+<td>Higher Level Apprenticeships<br> Undergraduate (FdSc, HND, HNC)<br>Professional Development Programmes</td><!--Services Offered-->
+<td>Strand Road Londonderry/Derry BT48 7AL County Londonderry Northern Ireland United Kingdom</td><!--Address-->
+<td>Tel: 028 7127 6000 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Regional College - Greystone</td><!--Name-->
+<td><a href="https://www.nwrc.ac.uk/about/our-venues/campus-and-facilities/greystone" target="_blank">NWRC Greystone Website</a></td><!--Link-->
+<td>Higher Level Apprenticeships<br> Undergraduate (FdSc, HND, HNC)<br>Professional Development Programmes</td><!--Services Offered-->
+<td>Greystone Road Limavady BT49 0ND County Londonderry Northern Ireland United Kingdom</td><!--Address-->
+<td>Tel: 028 7127 8750 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Regional College - Strabane</td><!--Name-->
+<td><a href="https://www.nwrc.ac.uk/about/our-venues/campus-and-facilities/strabane" target="_blank">NWRC Strabane Website</a></td><!--Link-->
+<td>Higher Level Apprenticeships<br> Undergraduate (FdSc, HND, HNC)<br>Professional Development Programmes</td><!--Services Offered-->
+<td>Derry Road Strabane BT82 8DX County Tyrone Northern Ireland United Kingdom</td><!--Address-->
+<td>Tel: 028 7127 8844</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Regional College - Limavady</td><!--Name-->
+<td><a href="https://www.nwrc.ac.uk/about/our-venues/campus-and-facilities/limavady" target="_blank">NWRC Limavady Website</a></td><!--Link-->
+<td>Higher Level Apprenticeships<br> Undergraduate (FdSc, HND, HNC)<br>Professional Development Programmes</td><!--Services Offered-->
+<td>Main Street Limavady BT49 0EX County Londonderry Northern Ireland United Kingdom</td><!--Address-->
+<td>Tel: 028 7127 8700</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Regional College - Springtown</td><!--Name-->
+<td><a href="https://www.nwrc.ac.uk/about/our-venues/campus-and-facilities/springtown" target="_blank">NWRC Springtown Website</a></td><!--Link-->
+<td>Higher Level Apprenticeships<br> Undergraduate (FdSc, HND, HNC)<br>Professional Development Programmes</td><!--Services Offered-->
+<td>Springtown Road Londonderry/Derry BT48 0LY County Londonderry Northern Ireland United Kingdom</td><!--Address-->
+<td>Springtown: 028 7127 6222</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South West College - Enniskillen</td><!--Name-->
+<td><a href="https://swc.ac.uk/about/explore/erne-campus" target="_blank">Enniskillen SWC Website</a></td><!--Link-->
+<td>Undergraduate (BSc, FdSc, Accounting Technicians Ireland <br> Level 1, 2 and 3 Courses<br> Essential Skills Courses<br> ESOL</td><!--Services Offered-->
+<td>1 Cornagrade Road Cornagrade Enniskillen County Fermanagh BT74 6DU </td><!--Address-->
+<td>T: 028 8225 0109 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South West College - Omagh</td><!--Name-->
+<td><a href="https://swc.ac.uk/about/explore/omagh-campus" target="_blank">Omagh SWC Website</a></td><!--Link-->
+<td>Undergraduate (BSc, BA, FdSc, FDENG, BENG, Accounting Technicians Ireland <br> Level 1, 2 and 3 Courses<br> Essential Skills Courses<br> ESOL<br>OCR</td><!--Services Offered-->
+<td>2 Mountjoy Road Omagh County Tyrone BT79 7AH</td><!--Address-->
+<td>T: 028 8225 0109 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South West College - Dungannon</td><!--Name-->
+<td><a href="https://swc.ac.uk/about/explore/dungannon-campus" target="_blank">Dungannon SWC Website</a></td><!--Link-->
+<td>Undergraduate (BSc, FdSc, FDENG, BENG, Accounting Technicians Ireland <br> Level 1, 2 and 3 Courses<br> Essential Skills Courses<br> ESOL</td><!--Services Offered-->
+<td>Circular Road Dungannon County Tyrone BT71 6BQ </td><!--Address-->
+<td>T: 028 8225 0109 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South West College - Cookstown</td><!--Name-->
+<td><a href="https://swc.ac.uk/about/explore/cookstown-campus" target="_blank">Cookstown SWC Website</a></td><!--Link-->
+<td>Level 1, 2 and 3 Courses<br>Essential Skills Courses</td><!--Services Offered-->
+<td>Burn Road Cookstown County Tyrone BT80 8DN </td><!--Address-->
+<td>T: 028 8225 0109 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>South West College - Technology and Skills Centre Enniskillen</td><!--Name-->
+<td><a href="https://swc.ac.uk/about/explore/technology-skills" target="_blank">SWC TSC Enniskillen Website</a></td><!--Link-->
+<td>Undergraduate (BSc, FdSc, BENG) <br> Level 1, 2 and 3 Courses</td><!--Services Offered-->
+<td>Killyhevlin Industrial Estate, Enniskillen BT74 4EJ </td><!--Address-->
+<td>T: 02882250109</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>CAFRE Enniskillen</td><!--Name-->
+<td><a href="https://www.cafre.ac.uk/about-us/our-campuses/enniskillen/" target="_blank">CAFRE Enniskillen Website</a></td><!--Link-->
+<td>Business Support Training Courses <br> Undergraduate (BSc, FdSc) <br> Level 2 and 3 Courses</td><!--Services Offered-->
+<td>Levaghy ENNISKILLEN Co Fermanagh Northern Ireland BT74 4GF</td><!--Address-->
+<td>T: 028 6634 4853 Residential support staff (Sunday: 7pm – midnight, Monday – Thursday: 5pm – midnight, term-time only) T: 077 3041 8132 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>CAFRE Greenmount</td><!--Name-->
+<td><a href="https://www.cafre.ac.uk/about-us/our-campuses/greenmount/" target="_blank">CAFRE Greenmount Website</a></td><!--Link-->
+<td>Business Support Training Courses <br> Undergraduate (BSc, FdSc) <br> Postgraduate <br> Level 2 and 3 Courses</td><!--Services Offered-->
+<td>45 Tirgracy Road Muckamore ANTRIM Co Antrim Northern Ireland BT41 4PS</td><!--Address-->
+<td>T: 028 9442 6601 Residential support staff: (Sunday: 7pm – midnight, Monday – Thursday: 5pm – midnight, term-time only) T: 079 1779 1351 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>CAFRE Loughry</td><!--Name-->
+<td><a href="https://www.cafre.ac.uk/about-us/our-campuses/loughry/" target="_blank">CAFRE Loughry Website</a></td><!--Link-->
+<td>Business Support Training Courses <br> Undergraduate (BSc, FdSc) <br> Postgraduate <br> Level 3 Courses</td><!--Services Offered-->
+<td>76 Dungannon Road COOKSTOWN Co. Tyrone Northern Ireland BT80 9AA</td><!--Address-->
+<td>T: 028 8676 8101 Residential support staff: (Sunday 6pm – midnight, Monday – Thursday 5pm – midnight, term-time only) T: 028 8676 8134 </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Stranmillis University College</td><!--Name-->
+<td><a href="https://www.stran.ac.uk/" target="_blank">Stranmillis University College Website</a></td><!--Link-->
+<td>Undergraduate <br> Postgraduate <br> International Exchange <br> Work-based Placements</td><!--Services Offered-->
+<td>Stranmillis Road, Belfast, Co. Antrim Northern Ireland, BT9 5DY.</td><!--Address-->
+<td>T: 028 9038 1271 E: info@stran.ac.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>St Mary's University College</td><!--Name-->
+<td><a href="https://www.stmarys-belfast.ac.uk/" target="_blank">St Mary's Website</a></td><!--Link-->
+<td>Undergraduate Courses <br> Postgrade (MEd, MSc, PGCE)</td><!--Services Offered-->
+<td>St Mary’s University College 191 Falls Road Belfast BT12 6FE</td><!--Address-->
+<td>Telephone: +44 (0) 28 9032 7678</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>The Open University</td><!--Name-->
+<td><a href="https://university.open.ac.uk/northern-ireland/" target="_blank">OU NI</a></td><!--Link-->
+<td>Undergraduate Courses <br> Postgraduate Courses</td><!--Services Offered-->
+<td>Open University 110 Victoria St, Belfast BT1 3GN</td><!--Address-->
+<td> For general enquiries / reception, call +44 2890 245025 <br> For study related queries, call +44 2890 323722 <br> northern-ireland@open.ac.uk</td><!--Contact Dectails-->
+</tr>
+</table>
+</div>
+
+<!--End of Education Table-->
+
+
+<!--NGO table-->
+<div>
+
+<table  class="tb-ngo" id="ngo_list">
+<thead>
+<tr> <strong>
+<th>NGO</th>
+<th>Link</th>
+<th>Examples of Services Offered</th>
+<th>Address</th>
+<th>Contact Details</th>
+</tr> </strong>
+</thead>
+
+<tr>
+<td>ACSONI (African and Caribbean Support Organisation Northern Ireland</td><!--Name-->
+<td><a href="https://www.acsoni.org/" target="_blank">ACSONI Website</a></td><!--Link-->
+<td>Supporting African and Carribbean communities by hosting art, educational and cultural programmes and cultural exchanges. <br> Drop-in services</td><!--Services Offered-->
+<td>First Floor, 9 Lower Cresent, Belfast, BT7 1NR</td><!--Address-->
+<td>Email: admin@acsoni.org Numbers:028 9043 4090 / 073 1130 0397 and 028 9043 4106</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Horn of Africa People's Aid NI</td><!--Name-->
+<td><a href="https://hapani.org/" target="_blank">HAPANI Website</a></td><!--Link-->
+<td>Youth Projects <br> International Projects<br>NGO collaboration<br>English lessons</td><!--Services Offered-->
+<td>HAPANI Horn Of Africa Botanic House,1-5 Botanic Avenue, Belfast, BT7 1JG. </td><!--Address-->
+<td>028 9031 5778 info@hapani.org</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>North West Migrants Forum</td><!--Name-->
+<td><a href="https://nwmf.org.uk/" target="_blank">NWMF Website</a></td><!--Link-->
+<td>Community Projects <br> NGO and government Partnerships<br>Fundraisers</td><!--Services Offered-->
+<td>Londonderry BT48 6BB, United Kingdom</td><!--Address-->
+<td>Telephone: 02871362184 Mobile:07912295771  Email:info@nwmf.org.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Northern Ireland Somali Association</td><!--Name-->
+<td><a href="http://www.nisomaliassociation.org.uk/" target="_blank"> Northern Ireland Somali Association Website</a></td><!--Link-->
+<td>Youth Support <br>Drop-in service<br>Homework Club<br>Employment and Training</td><!--Services Offered-->
+<td>Northern Ireland Somali Association (NISA), 185a Ormeau Road Belfast BT7 1SQ </td><!--Address-->
+<td>+442890200792/+447454775666</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Bomoko NI</td><!--Name-->
+<td><a href="https://bomokoni.org/" target="_blank">Bomoko Website</a></td><!--Link-->
+<td>Advocacy through social work<br>Education and Training<br>Mental Health Awareness<br>Community Engagement</td><!--Services Offered-->
+<td>The Northern Ireland Refugees and Asylum Seekers Women Association (BOMOKO NI) 3 Glengall Street, Glengall Exchange, BT12 5AB.</td><!--Address-->
+<td>info@bomokoni.org.uk +44 (0) 289 6935919 +44 (0)7488306233</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Building Communities Resource Centre (BCRC)</td><!--Name-->
+<td><a href="https://www.theresourcecentre.org/" target="_blank">BCRC Website</a></td><!--Link-->
+<td>Community Development <br> Ethnic Minority Support</td><!--Services Offered-->
+<td>Building Communities Resource Centre Units 22 -23 Acorn Business Centre, 2 Riada Avenue, Ballymoney, BT53 7LH.</td><!--Address-->
+<td>info@theresourcecentre.org 028 2766 5068</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>larne house visitors group- behind Larne Police Station</td><!--Name-->
+<td><a href="https://larnehousevisitorgroup.org/" target="_blank">larne house visitors group Website</a></td><!--Link-->
+<td>Immigration Detention vists<br>Volunteering opportunities</td><!--Services Offered-->
+<td>2 Hope Street Larne Antrim BT40 1UR</td><!--Address-->
+<td>info@larnehousevisitorgroup.org.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Shaftesbury Community & Recreation Centre - Lower Ormeau Residents Action Group (LORAG)</td><!--Name-->
+<td><a href="https://lorag.org/" target="_blank">LORAG Website</a></td><!--Link-->
+<td>Sports Development<br>Family Support<br>Children Programmes<br>Parental Support</td><!--Services Offered-->
+<td>Shaftesbury Community and Recreation Centre Balfour Avenue, Belfast BT7 2EW</td><!--Address-->
+<td>T. 028 9031 2377 E. info@lorag.org</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Law Centre NI - Migration Justice Project</td><!--Name-->
+<td><a href="https://www.lawcentreni.org/migration-justice-project/" target="_blank">Migration Justice Project Website</a></td><!--Link-->
+<td>Community Engagement <br> Employment and Immigration Support<br>Community Legal Services</td><!--Services Offered-->
+<td>Law Centre NI 3rd Floor, State Building 2 Arthur Place Belfast BT1 4HG </td><!--Address-->
+<td>Advice line 028 9024 4401: General office admin@lawcentreni.org: Training team training@lawcentreni.org </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>The Rainbow Project</td><!--Name-->
+<td><a href="https://www.rainbow-project.org/" target="_blank">The Rainbow Project Website</a></td><!--Link-->
+<td>Volunteering <br> Fundraisers<br>Policy Campaigns</td><!--Services Offered-->
+<td>Belfast Office 23-31 Waring Street Belfast BT1 2DX</td><!--Address-->
+<td>028 9031 9030 info@rainbow-project.org</td><!--Contact Dectails-->
+</tr>
+
+</table>
+</div>
+
+<!--End of NGO Table-->
+
+
+
+
+<!--Charity table-->
+<div>
+<table  class="tb-cha" id="charity_list">
+<thead>
+<tr> <strong>
+<th>Charity</th>
+<th>Link</th>
+<th>Examples of Services Offered</th>
+<th>Address</th>
+<th>Contact Details</th>
+</tr> </strong>
+</thead>
+
+<tr>
+<td>Migrant Centre NI</td><!--Name-->
+<td><a href="http://migrantcentreni.org/" target="_blank">Migrant Centre NI Website</a></td><!--Link-->
+<td>Immigration Advice<br> Hate crime Advocacy services<br>Grants for communities experiencing racial inequality across NI</td><!--Services Offered-->
+<td>Unit 3, CIDO Business Complex Charles Street Lurgan BT66 6HG</td><!--Address-->
+<td>Call: 0330 088 0464 E-mail: admin@migrantcentreni.org</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>NICVA</td><!--Name-->
+<td><a href="https://www.nicva.org/" target="_blank">NICVA Website</a></td><!--Link-->
+<td>Community Events<br>Advocacy for change at government level through representation in government<br>Training and skills development</td><!--Services Offered-->
+<td>NICVA 61 Duncairn Gardens, Belfast BT15 2GB</td><!--Address-->
+<td>Phone: 028 9087 7777</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>NICEM North West</td><!--Name-->
+<td><a href="" target="_blank">No website found</a></td><!--Link-->
+<td>Migrant Advocacy <br> Schemes for Children<br>Community Support</td><!--Services Offered-->
+<td>The Old Church, Clarendon St, Londonderry BT48 7ES</td><!--Address-->
+<td>Phone: 07827297119</td><!--Contact Dectails-->
+</tr>
+
+
+<tr>
+<td>Migrant Support Service</td><!--Name-->
+<td><a href="https://abcmigrant.webnode.co.uk/" target="_blank">Migrant Support Services Website</a></td><!--Link-->
+<td>English Classes (ESOL)<br>Support for migrants coming to live in NI such as food vouchers<br>Integration assistance for new migrants</td><!--Services Offered-->
+<td>Unit F, Mayfair Business Park, 193 Garvaghy Rd,, Portadown, United Kingdom</td><!--Address-->
+<td>Phone: 028 3898 8610 Email:  migrantappointments@gmail.com</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>STEP Law & Migrant Rights Centre</td><!--Name-->
+<td><a href="https://www.stepni.org/" target="_blank">Step NI Website</a></td><!--Link-->
+<td>Support through education process<br>Public funding awareness<br>Topical workshops<br>Promoting good relations with minority groups</td><!--Services Offered-->
+<td>The Junction 12 Beechvalley Way Dungannon, Co. Tyrone Northern Ireland. BT70 1BS</td><!--Address-->
+<td>Tel: 02887 750211</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>ERANO</td><!--Name-->
+<td><a href="https://erano.org/" target="_blank">ERANO Website</a></td><!--Link-->
+<td>Hate Crime Training <br> Free Sports Programmes<br>English Classes<<br>Drop-in Centre</td><!--Services Offered-->
+<td>2 Drumragh Avenu Omagh BT78 1DP </td><!--Address-->
+<td> 07783706598 mary.lafferty@eran.org.uk </td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>British Red Cross</td><!--Name-->
+<td><a href="https://www.redcross.org.uk/get-help" target="_blank">British Red Cross Website</a></td><!--Link-->
+<td>First aid courses<br>Humanitarian Education<br>Fire and emergency support<br>Mobility aids<br>Refugee support<br>Transport Support</td><!--Services Offered-->
+<td>28 Botanic Ave, Belfast BT7 1JQ</td><!--Address-->
+<td>Phone: 028 9031 5544</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>YMCA North Down</td><!--Name-->
+<td><a href="https://northdownymca.co.uk/" target="_blank">YMCA North Down Website</a></td><!--Link-->
+<td>After school club <br>Community programmes<br>Youth help and projects<br>Volunteering opportunities<br>Ethnic Minority Support</td><!--Services Offered-->
+<td>YMCA North Down 10-12 High Street Bangor BT20 5AY</td><!--Address-->
+<td>Email: info@northdownymca.org  Phone: 028 9145 4290</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Simon Community</td><!--Name-->
+<td><a href="https://simoncommunity.org/" target="_blank">Simon Community Website</a></td><!--Link-->
+<td>Accomodation Services <br>Freephone Support Line<br>Volunteering opportunities</td><!--Services Offered-->
+<td>3-5 Malone Rd, Belfast BT9 6RT</td><!--Address-->
+<td>Homeless support line: 08001712222 email: help@simoncommunity.org</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>starling collective</td><!--Name-->
+<td><a href="https://starlingcollective.org.uk/" target="_blank">Starling Collective Website</a></td><!--Link-->
+<td>Accomodation Support <br>Trauma Support Programme<br>Volunteer Led Advice</td><!--Services Offered-->
+<td>129 University Street, Belfast, BT7 1HP</td><!--Address-->
+<td>Phone: 028 90 135 531 Email: info@starlingcollective.org.uk</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Vineyard Compassion</td><!--Name-->
+<td><a href="https://www.vineyardcompassion.co.uk/" target="_blank">vineyardcompassion Website</a></td><!--Link-->
+<td>Free courses and classes about practical skills <br> Volunteering opportunities<br>Community Projects<br>Food Banks</td><!--Services Offered-->
+<td>The Vineyard Centre 10 Hillmans Way, Coleraine, BT52 2ED, Northern Ireland</td><!--Address-->
+<td>+44 (0)28 7022 0005</td><!--Contact Dectails-->
+</tr>
+
+<tr>
+<td>Storehouse Centre</td><!--Name-->
+<td><a href="https://www.storehousebelfast.com/" target="_blank">Storehouse Website</a></td><!--Link-->
+<td>Food donation services <br>Church and community collaboration<br>Volunteering opportunities<br>First home assistance for the former homeless</td><!--Services Offered-->
+<td>39 North Street Belfast BT1 1NA </td><!--Address-->
+<td>Phone: 028 9023 6333  Email: info@storehousebelfast.com</td><!--Contact Dectails-->
+</tr>
+</table>
+</div>
+
+<!--End of Charity Table-->
+<!--Footer for website-->
+<footer>
+<img src="images/consulate-connect-ni-high-resolution-logo.png">
+<ul>
+<h2>Contact Us</h2>
+<li>Address: Ulster University, Cromore Rd, Coleraine BT52 1SA</li>
+<li>Phone: 028 7012 3456</li>
+</ul>
+<ul>
+<h2>Pages</h2>
+<li><a href="index.html">Home</a></li>
+<li><a href="map.html">Map</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+<p>Copyright 2025</p>
+</footer>
+</body>
+</html>
